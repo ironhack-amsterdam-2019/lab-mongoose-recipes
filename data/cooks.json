@@ -1,0 +1,32 @@
+[
+  {
+    "_id": {"$oid": "5d319bef5294e562bb519e06"},
+    "firstName": "Jennifer",
+    "lastName": "Jones",
+    "recipes": [{"$oid": "5d319bef2294e562bb519e09"}]
+  },
+  {
+    "_id": {"$oid": "5d319bef5284e562bb519e06"},
+    "firstName": "Luigi",
+    "lastName": "Mario",
+    "recipes": [{"$oid": "5d319bef2294e562bb519e08"}]
+  },
+  {
+    "_id": {"$oid": "5d319bef5274e562bb519e06"},
+    "firstName": "Nadia",
+    "lastName": "Hurtz",
+    "recipes": [{"$oid": "5d319bef2294e562bb519e07"}]
+  },
+  {
+    "_id": {"$oid": "5d319bef5264e562bb519e06"},
+    "firstName": "John",
+    "lastName": "Lennon",
+    "recipes": [{"$oid": "5d319bef2294e562bb519e06"}]
+  },
+  {
+    "_id": {"$oid": "5d319bef5254e562bb519e06"},
+    "firstName": "LePapu",
+    "lastName": "Papi",
+    "recipes": [{"$oid": "5d319bef2294e562bb519e05"}]
+  }
+]

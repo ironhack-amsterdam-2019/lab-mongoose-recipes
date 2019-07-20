@@ -9,7 +9,7 @@ const recipeSchema = new Schema({
   dishType : { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
   image : { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg' },
   duration     : { type: Number, min: [0, 'No negative time possible ;)'],},
-  creator : { type: String },
+  creator: { type: Schema.Types.ObjectId, ref: 'Cook' },
   created    : { type: Date, default: Date.now },
 }, {collection : 'recipes'});
 

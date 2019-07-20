@@ -1,0 +1,9 @@
+<div class="recipes">
+  {{#each recipes as | recipe |}}
+    <div class="recipe">
+      {{> detailedRecipe recipe }}
+    </div>
+  {{else}}
+  <a href="/recipes/seed">Seed recipes</a>
+  {{/each}}
+</div>
