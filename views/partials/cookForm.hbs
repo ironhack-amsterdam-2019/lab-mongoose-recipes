@@ -1,0 +1,7 @@
+<div class="cookForm">
+  <form action="/{{#if cook}}cook/{{cook._id}}/update{{else}}cooks/new{{/if}}" method="POST">
+    <input type="text" name='firstName' class='form-control' placeholder='First name' autofocus value="{{#if cook}}{{cook.firstName}}{{/if}}">
+    <input type="text" name='lastName' class='form-control' placeholder='Last name' autofocus value="{{#if cook}}{{cook.lastName}}{{/if}}">
+    <button type="submit">{{#if cook}}Update{{else}}Create{{/if}} cook</button>
+  </form>
+</div>

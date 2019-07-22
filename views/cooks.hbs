@@ -1,9 +1,10 @@
 <div class="cooks">
   {{#each cooks as | cook |}}
     <div class="cook">
-      {{> detailedCook cook }}
+      {{> detailedCook cook=cook }}
+      <a href="/cook/{{cook._id}}"></a>
     </div>
   {{else}}
-  <a href="/cooks/seed">Seed cooks</a>
+    <p>You should add some cooks</p>
   {{/each}}
 </div>

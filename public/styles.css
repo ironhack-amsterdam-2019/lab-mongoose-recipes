@@ -1,0 +1,155 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+.container {
+  padding: 15px 10%;
+}
+
+footer {
+  padding: 25px 10%;
+  background-color: gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  padding: 25px 10%;
+  background-color: grey;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+}
+
+nav ul > li {
+  margin: 0;
+  padding-right: 15px;
+}
+
+nav ul > li a {
+  text-decoration: none;
+}
+
+.img-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.recipes,
+.cooks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.recipes .recipe,
+.cooks .cook {
+  position: relative;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 400px;
+}
+.cooks .cook {
+  width: 300px;
+}
+
+.recipes .recipe:hover,
+.cooks .cook:hover {
+  border: solid blue 2px;
+  padding: 13px;
+}
+
+.img-wrap img {
+  position: relative;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+
+.img-wrap .inner-img {
+  position: relative;
+}
+
+.img-wrap .delete-icon,
+.img-wrap .edit-icon {
+  position: absolute;
+  margin: inherit;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  background-color: rgba(51,102,0,0.8);
+}
+
+.img-wrap .delete-icon i,
+.img-wrap .edit-icon i {
+  line-height: 32px;
+  vertical-align: middle;
+  position: relative;
+  margin: auto;
+}
+
+.img-wrap .delete-icon a,
+.img-wrap .edit-icon a {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.img-wrap .delete-icon {
+  right: 0;
+}
+
+.img-wrap .edit-icon {
+  left: 0;
+}
+
+.single-recipe {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.cooks .cook a,
+.recipes .recipe a {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1200px) {
+  .single-recipe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

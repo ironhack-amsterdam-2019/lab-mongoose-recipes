@@ -1,32 +1,30 @@
 <div class="recipeForm">
-  <form action="" method="POST">
-    <input type="text" name='title' class='form-control' placeholder='Recipe title' required autofocus>
-  <select name="level">
-    <option value="Easy Peasy">Easy Peasy</option>
-    <option value="Amateur Chef">Amateur Chef</option>
-    <option value="UltraPro Chef">UltraPro Chef</option>
-  </select>
-    <input type="text" name='ingredients' class='form-control' placeholder='Recipe title' required autofocus>
-    <input type="text" name='title' class='form-control' placeholder='Recipe title' required autofocus>
-    <input type="text" name='title' class='form-control' placeholder='Recipe title' required autofocus>
-
+  <form action="/{{#if recipe}}recipe/{{recipe._id}}/update{{else}}recipes/new{{/if}}" method="POST">
+    <input type="text" name='title' class='form-control' placeholder='Recipe title' required autofocus {{#if recipe}}value="{{recipe.title}}"{{/if}}>
+    <select name="level">
+      <option value="Easy Peasy" {{#ifvalue recipe.level value="Easy Peasy"}}selected{{/ifvalue}}>Easy Peasy</option>
+      <option value="Amateur Chef" {{#ifvalue recipe.level value="Amateur Chef"}}selected{{/ifvalue}}>Amateur Chef</option>
+      <option value="UltraPro Chef" {{#ifvalue recipe.level value="UltraPro Chef"}}selected{{/ifvalue}}>UltraPro Chef</option>
+    </select>
+    <input type="text" name='ingredients' class='form-control' placeholder='Ingredients' autofocus value="{{#if recipe}}{{recipe.ingredients}}{{/if}}">
+    <input type="text" name='cuisine' class='form-control' placeholder='Cuisine' required autofocus {{#if recipe}}value="{{recipe.cuisine}}"{{/if}}>
+    <select name="dishType" required>
+      {{#unless recipe}}<option hidden disabled selected value> -- select the dishtype -- </option>{{/unless}}
+      <option value="Breakfast" {{#ifvalue recipe.dishType value="Breakfast"}}selected{{/ifvalue}}>Breakfast</option>
+      <option value="Dish" {{#ifvalue recipe.dishType value="Dish"}}selected{{/ifvalue}}>Dish</option>
+      <option value="Snack" {{#ifvalue recipe.dishType value="Snack"}}selected{{/ifvalue}}>Snack</option>
+      <option value="Drink" {{#ifvalue recipe.dishType value="Drink"}}selected{{/ifvalue}}>Drink</option>
+      <option value="Dessert" {{#ifvalue recipe.dishType value="Dessert"}}selected{{/ifvalue}}>Dessert</option>
+      <option value="Other" {{#ifvalue recipe.dishType value="Other"}}selected{{/ifvalue}}>Other</option>
+    </select>
+    <input type="text" name='image' class='form-control' placeholder='Image url' autofocus {{#if recipe}}value="{{recipe.image}}"{{/if}}>
+    <input type="text" name='duration' class='form-control' placeholder='Duration in minutes' autofocus value="{{#if recipe}}{{recipe.duration}}{{else}}0{{/if}}">
+    <select name="creator" required>
+      {{#unless recipe}}<option hidden disabled selected value> -- select a cook -- </option>{{/unless}}
+      {{#each cooks}}
+      <option value="{{_id}}" {{#ifvalue recipe.creator value="{{_id}}"}}selected{{/ifvalue}}>{{firstName}} {{lastName}}</option>
+      {{/each}}
+    </select>
+    <button type="submit">{{#if recipe}}Update{{else}}Create{{/if}} recipe</button>
   </form>
 </div>
-
-  <form class="form-signup" action='/signup' method='POST'>
-    <input type="text" name='username' class='form-control' placeholder='Username' required autofocus>
-    <input type="email" name='email' class='form-control' placeholder='Email' required autofocus>
-    <input type='password' name='password' class='form-control' placeholder='Password' required>
-    <button type="submit">Register</button>
-  </form>
-
-  title : { type: String, required: true, unique: true },
-  level : { type: String, enum: ['Easy Peasy', 'Amateur Chef', 'UltraPro Chef'] },
-  ingredients : { type: Array },
-  cuisine : { type: String, required: true },
-  dishType : { type: String, enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other'] },
-  image : { type: String, default: 'https://images.media-allrecipes.com/images/75131.jpg' },
-  duration     : { type: Number, min: [0, 'No negative time possible ;)'],},
-  creator : { type: String },
-  cook: { type: Schema.Types.ObjectId, ref: 'Cook' },
-  created    : { type: Date, default: Date.now },

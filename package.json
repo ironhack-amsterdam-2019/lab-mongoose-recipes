@@ -5,16 +5,17 @@
   "main": "index.js",
   "scripts": {
     "seed": "seedgoose",
-    "dev": "nodemon -e 'hbs js' index.js",
+    "dev": "nodemon -e 'hbs js' --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^6.1.0",
     "express": "^4.17.1",
     "hbs": "^4.0.4",
-    "mongoose": "^5.5.0",
+    "mongoose": "^5.6.5",
     "seedgoose": "^1.1.4"
   }
 }

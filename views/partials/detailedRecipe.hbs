@@ -1,1 +1,33 @@
-{{title}} by {{creator.firstName}} {{creator.lastName}}
+<div class="img-wrap">
+  {{#if buttons }}
+    <div class="inner-img">
+      <img src="{{recipe.image}}" alt="{{recipe.title}}">
+      <div class="delete-icon">
+        <a href="/recipe/{{recipe._id}}/delete"></a>
+        <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+      </div>
+      <div class="edit-icon">
+        <a href="/recipe/{{recipe._id}}/update"></a>
+        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+      </div>
+    </div>
+  {{else}}
+    <img src="{{recipe.image}}" alt="{{recipe.title}}">
+  {{/if}}
+</div>
+{{#recipe}}
+<div class="recipe-description">
+  <h2>{{title}}</h2>
+  <small><strong>{{cuisine}} {{dishType}}</strong> a la <strong>{{creator.firstName}}
+      {{creator.lastName}}</strong>;</small>
+  <small>Preparation difficulty: <strong>{{level}}</strong>; {{duration}}min</small>
+  <p>Ingredients</p>
+  <ul>
+    {{#each ingredients }}
+    <li>{{this}}</li>
+    {{else}}
+    <li>You need nothing O.o</li>
+    {{/each}}
+  </ul>
+</div>
+{{/recipe}}

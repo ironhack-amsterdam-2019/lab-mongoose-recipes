@@ -1,1 +1,10 @@
-{{firstName}} {{lastName}}
+{{#cook}}
+<strong>{{firstName}} {{lastName}}</strong> is making:
+<ul>
+  {{#each recipes}}
+  <li>{{title}}</li>
+  {{else}}
+  Nothing...
+  {{/each}}
+</ul>
+{{/cook}}

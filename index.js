@@ -2,14 +2,23 @@ require('dotenv').config();
 
 const hbs = require('hbs');
 const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe');
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const bodyParser = require('body-parser')
+
+hbs.registerHelper('ifvalue', function (conditional, options) {
+  if (options.hash.value === conditional) {
+    return options.fn(this)
+  } else {
+    return options.inverse(this);
+  }
+});
 
 // Connection to the database "recipeApp"
 mongoose.connect('mongodb://127.0.0.1/recipeApp', {
     useCreateIndex: true,
+    useFindAndModify: false,
     useNewUrlParser: true
   })
   .then(() => {
@@ -20,6 +29,9 @@ mongoose.connect('mongodb://127.0.0.1/recipeApp', {
 
 const app = express();
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
