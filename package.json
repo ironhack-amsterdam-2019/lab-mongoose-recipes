@@ -22,5 +22,8 @@
     "hbs": "^4.0.4",
     "mongoose": "^5.6.5",
     "seedgoose": "^1.1.4"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
