@@ -34,7 +34,10 @@ const app = express();
 
 app.use(session({
   secret: process.env.SECRET,
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  store: new MongoStore({
+    url: process.env.MONGODB_URI,
+    ttl: 24 * 60 * 60
+  }),
   resave: false,
   saveUninitialized: true,
   //cookie: { secure: true }
