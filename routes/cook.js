@@ -11,6 +11,10 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/:id/update', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/cook/' + req.params.id + '/update')}`)
+    return;
+  }
   Cook.findOne({_id: req.params.id})
     .then(cook => {
       res.render("updateCook", { cook: cook })
@@ -22,6 +26,10 @@ router.get('/:id/update', (req, res, next) => {
 });
 
 router.post('/:id/update', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/cook/' + req.params.id + '/update')}`)
+    return;
+  }
   /** @todo verify... no empty names and so on */
   let data = {
     firstName: req.body.firstName,

@@ -17,6 +17,10 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/:id/delete', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/recipe/' + req.params.id)}`)
+    return;
+  }
   Recipe.findOne({
       _id: req.params.id
     })
@@ -38,6 +42,10 @@ router.get('/:id/delete', (req, res, next) => {
 });
 
 router.get('/:id/update', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/recipe/' + req.params.id + '/update')}`)
+    return;
+  }
   Recipe.findOne({
       _id: req.params.id
     })
@@ -62,6 +70,10 @@ router.get('/:id/update', (req, res, next) => {
 });
 
 router.post('/:id/update', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/recipe/' + req.params.id + '/update')}`)
+    return;
+  }
   // @ToDo verify input
   let data = {
     title: req.body.title,

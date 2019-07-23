@@ -6,6 +6,8 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
+const session = require('express-session')
 
 hbs.registerHelper('ifvalue', function (conditional, options) {
   if (options.hash.value === conditional) {
@@ -29,9 +31,28 @@ mongoose.connect('mongodb://127.0.0.1/recipeApp', {
 
 const app = express();
 
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  //cookie: { secure: true }
+}))
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+function checkIfLoggedIn(req, res, next) {
+  if (req.session.user) {
+    res.locals.loggedIn = true;
+    res.locals.username = `${req.session.user}`;
+  } else {
+    res.locals.loggedIn = false;
+  }
+  next();
+};
+
+app.use(checkIfLoggedIn);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -47,6 +68,10 @@ app.use('/recipe', require('./routes/recipe'));
 app.use('/cooks', require('./routes/cooks'));
 
 app.use('/cook', require('./routes/cook'));
+
+app.use('/users', require('./routes/login'));
+app.use('/users', require('./routes/logout'));
+app.use('/users', require('./routes/signup'));
 
 // catch 404 and render a not-found.hbs template
 app.use((req, res, next) => {
@@ -68,7 +93,9 @@ app.use((err, req, res, next) => {
 let server = http.createServer(app);
 
 server.on('error', error => {
-  if (error.syscall !== 'listen') { throw error }
+  if (error.syscall !== 'listen') {
+    throw error
+  }
 
   // handle specific listen errors with friendly messages
   switch (error.code) {

@@ -16,10 +16,18 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/new', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/cooks/new')}`)
+    return;
+  }
   res.render("newCook")
 });
 
 router.post('/new', (req, res, next) => {
+  if(!req.session.user) {
+    res.redirect(`/users/login?destination=${encodeURIComponent('/cooks/new')}`)
+    return;
+  }
   /** @todo verify... no empty names and so on */
   let data = {
     firstName: req.body.firstName,
