@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require("../models/User")
 
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
+
 router.get('/signup', (req, res, next) => {
   res.render("signup")
 });
@@ -15,12 +18,18 @@ router.post('/signup', (req, res, next) => {
     next(new Error("Empty password is not allowed"))
   }
   let user = {
-    username: req.body.username.trim(),
-    password: req.body.password.trim()
+    username: req.body.username.trim()
   }
-  User.findOne({
+  let userPromise = User.findOne({
     username: user.username
-  }).then(duplicate => {
+  })
+  let hashPromise = new Promise((resolve, reject) => {
+    bcrypt.hash(req.body.password.trim(), saltRounds, function (err, hash) {
+      if (err) reject(err)
+      resolve(hash)
+    });
+  });
+  Promise.all([hashPromise, userPromise]).then(([hash, duplicate]) => {
     if (duplicate) {
       res.render("message", {
         message: "User already exists. Choose another username...",
@@ -30,6 +39,7 @@ router.post('/signup', (req, res, next) => {
         }
       })
     } else {
+      user.password = hash;
       let newUser = new User(user);
       newUser.save().then(() => {
         res.redirect("/")

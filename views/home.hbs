@@ -1,4 +1,9 @@
-<p>Hi there, {{username}}</p>
-<p>Here could be your own recipes, favorites or some other personalized stuff... But there isn't so don't waste your time looking for it ;)</p>
-<a href="/recipes">Recipes</a>
-<a href="/cooks">Cooks</a>
+{{#if loggedIn}}
+  <p>Hi there, {{username}}</p>
+  <p>Here could be your own recipes, favorites or some other personalized stuff... But there isn't so don't waste your
+    time looking for it ;)</p>
+  <a href="/recipes">Recipes</a>
+  <a href="/cooks">Cooks</a>
+{{else}}
+  <p>As a NOT logged in user (buuuuh <i class="fa fa-thumbs-down" aria-hidden="true"></i>) you can browse the <a href="/cooks">cooks</a> and <a href="/recipes">recipes</a>, but you need to <a href="/users/login">log in</a> to edit/create/delete anything.</p>
+{{/if}}

@@ -7,7 +7,8 @@ const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
-const session = require('express-session')
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 hbs.registerHelper('ifvalue', function (conditional, options) {
   if (options.hash.value === conditional) {
@@ -33,10 +34,12 @@ const app = express();
 
 app.use(session({
   secret: process.env.SECRET,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
   resave: false,
   saveUninitialized: true,
   //cookie: { secure: true }
 }))
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   extended: true
