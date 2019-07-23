@@ -18,6 +18,8 @@ hbs.registerHelper('ifvalue', function (conditional, options) {
   }
 });
 
+console.log(process.env.MONGODB_URI)
+
 // Connection to the database "recipeApp"
 mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
