@@ -18,6 +18,7 @@ hbs.registerHelper('ifvalue', function (conditional, options) {
   }
 });
 
+console.log(process.env.MONGODB)
 console.log(process.env.MONGODB_URI)
 console.log(process.env.SECRET)
 
