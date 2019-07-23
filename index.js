@@ -19,7 +19,7 @@ hbs.registerHelper('ifvalue', function (conditional, options) {
 });
 
 // Connection to the database "recipeApp"
-mongoose.connect('mongodb://127.0.0.1/recipeApp', {
+mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true
