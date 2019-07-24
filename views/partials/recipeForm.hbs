@@ -19,9 +19,9 @@
     <input type="text" name='image' class='form-control' placeholder='Image url' autofocus {{#if recipe}}value="{{recipe.image}}"{{/if}}>
     <input type="text" name='duration' class='form-control' placeholder='Duration in minutes' autofocus value="{{#if recipe}}{{recipe.duration}}{{else}}0{{/if}}">
     <select name="creator">
-      <option {{#unless recipe.creator}}selected{{/unless}} value> -- No creator -- </option>
-      {{#each cooks}}
-      <option value="{{_id}}" {{#ifvalue recipe.creator value="{{_id}}"}}selected{{/ifvalue}}>{{firstName}} {{lastName}}</option>
+      <option {{#unless recipe.creator}}selected{{/unless}} deactivated hidden value=" "> -- No creator -- </option>
+      {{#each cooks as |cook|}}
+      <option value="{{cook._id}}" {{#ifvalue ../recipe.creator._id value=cook._id }}selected{{/ifvalue}}>{{cook.firstName}} {{cook.lastName}}</option>
       {{/each}}
     </select>
     <button type="submit">{{#if recipe}}Update{{else}}Create{{/if}} recipe</button>

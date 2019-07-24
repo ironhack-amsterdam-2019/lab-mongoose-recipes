@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/new', (req, res, next) => {
-  if(!req.session.user) {
+  if (!req.session.user) {
     res.redirect(`/users/login?destination=${encodeURIComponent('/recipes/new')}`)
     return;
   }
@@ -33,7 +33,7 @@ router.get('/new', (req, res, next) => {
 });
 
 router.post('/new', (req, res, next) => {
-  if(!req.session.user) {
+  if (!req.session.user) {
     res.redirect(`/users/login?destination=${encodeURIComponent('/recipes/new')}`)
     return;
   }
@@ -47,28 +47,34 @@ router.post('/new', (req, res, next) => {
     image: req.body.image.trim().length > 0 ? req.body.image.trim() : "/no-image.png",
     duration: parseInt(req.body.duration)
   }
-  if (req.body.creator) {
+  console.log("Creator: " + req.body.creator)
+  if (req.body.creator.trim().length > 0) {
     try {
       data.creator = mongoose.Types.ObjectId(req.body.creator)
-    } catch(error) {
+    } catch (error) {
       console.log("Attempting to link recipe with invalid ObjectId for creator")
       console.log(error)
     }
   }
+  console.log(data.creator)
   Recipe.create(data).then(recipe => {
-    Cook.findById(recipe.creator).then(cook => {
-      if (!cook || cook === null) {
-        res.redirect("/recipe/" + recipe._id);
-        return;
-      }
-      cook.update({
-        $push: {
-          recipes: recipe._id
+    if (recipe.creator && recipe.creator) {
+      Cook.findById(recipe.creator).then(cook => {
+        if (!cook || cook === null) {
+          res.redirect("/recipe/" + recipe._id);
+          return;
         }
-      }).then(() => {
-        res.redirect("/recipe/" + recipe._id);
+        cook.update({
+          $push: {
+            recipes: recipe._id
+          }
+        }).then(() => {
+          res.redirect("/recipe/" + recipe._id);
+        }).catch(error => next(error))
       }).catch(error => next(error))
-    }).catch(error => next(error))
+    } else {
+      res.redirect("/recipe/" + recipe._id);
+    }
   }).catch(error => next(error))
 });
 

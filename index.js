@@ -11,7 +11,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 hbs.registerHelper('ifvalue', function (conditional, options) {
-  if (options.hash.value === conditional) {
+  if (options.hash.value && conditional && options.hash.value.toString() === conditional.toString()) {
     return options.fn(this)
   } else {
     return options.inverse(this);
