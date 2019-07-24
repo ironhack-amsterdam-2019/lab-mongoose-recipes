@@ -42,6 +42,7 @@ router.post('/signup', (req, res, next) => {
       user.password = hash;
       let newUser = new User(user);
       newUser.save().then(() => {
+        req.session.user = user.username.trim();
         res.redirect("/")
       }).catch(error => {
         next(error);

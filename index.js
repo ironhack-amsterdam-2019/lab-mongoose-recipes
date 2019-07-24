@@ -18,10 +18,6 @@ hbs.registerHelper('ifvalue', function (conditional, options) {
   }
 });
 
-console.log(process.env.MONGODB)
-console.log(process.env.MONGODB_URI)
-console.log(process.env.SECRET)
-
 // Connection to the database "recipeApp"
 mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
@@ -78,6 +74,9 @@ app.use('/recipe', require('./routes/recipe'));
 app.use('/cooks', require('./routes/cooks'));
 
 app.use('/cook', require('./routes/cook'));
+
+// apparently collection insertAll doesn't like my $oid values in the seed files... back to manual seeding via console...
+// app.use('/seed', require('./routes/seed'));
 
 app.use('/users', require('./routes/login'));
 app.use('/users', require('./routes/logout'));

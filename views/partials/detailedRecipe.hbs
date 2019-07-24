@@ -18,13 +18,12 @@
 {{#recipe}}
 <div class="recipe-description">
   <h2>{{title}}</h2>
-  <small><strong>{{cuisine}} {{dishType}}</strong> a la <strong>{{creator.firstName}}
-      {{creator.lastName}}</strong>;</small>
+  <small><strong>{{cuisine}} {{dishType}}</strong>{{#if creator}} a la <strong>{{creator.firstName}} {{creator.lastName}}</strong>{{/if}};</small>
   <small>Preparation difficulty: <strong>{{level}}</strong>; {{duration}}min</small>
   <p>Ingredients</p>
   <ul>
     {{#each ingredients }}
-    <li>{{this}}</li>
+    {{#if this}}<li>{{this}}</li>{{/if}}
     {{else}}
     <li>You need nothing O.o</li>
     {{/each}}

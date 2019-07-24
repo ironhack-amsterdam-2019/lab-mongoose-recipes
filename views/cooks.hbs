@@ -5,6 +5,7 @@
       <a href="/cook/{{cook._id}}"></a>
     </div>
   {{else}}
-    <p>You should add some cooks</p>
+    <p>You should <a href="/cooks/new">add some cooks</a></p>
+    {{!-- <p>No data at all? Go and <a href="/seed">seed the database</a></p> --}}
   {{/each}}
 </div>

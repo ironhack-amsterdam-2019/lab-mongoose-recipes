@@ -8,8 +8,7 @@
     </select>
     <input type="text" name='ingredients' class='form-control' placeholder='Ingredients' autofocus value="{{#if recipe}}{{recipe.ingredients}}{{/if}}">
     <input type="text" name='cuisine' class='form-control' placeholder='Cuisine' required autofocus {{#if recipe}}value="{{recipe.cuisine}}"{{/if}}>
-    <select name="dishType" required>
-      {{#unless recipe}}<option hidden disabled selected value> -- select the dishtype -- </option>{{/unless}}
+    <select name="dishType">
       <option value="Breakfast" {{#ifvalue recipe.dishType value="Breakfast"}}selected{{/ifvalue}}>Breakfast</option>
       <option value="Dish" {{#ifvalue recipe.dishType value="Dish"}}selected{{/ifvalue}}>Dish</option>
       <option value="Snack" {{#ifvalue recipe.dishType value="Snack"}}selected{{/ifvalue}}>Snack</option>
@@ -19,8 +18,8 @@
     </select>
     <input type="text" name='image' class='form-control' placeholder='Image url' autofocus {{#if recipe}}value="{{recipe.image}}"{{/if}}>
     <input type="text" name='duration' class='form-control' placeholder='Duration in minutes' autofocus value="{{#if recipe}}{{recipe.duration}}{{else}}0{{/if}}">
-    <select name="creator" required>
-      {{#unless recipe}}<option hidden disabled selected value> -- select a cook -- </option>{{/unless}}
+    <select name="creator">
+      <option {{#unless recipe.creator}}selected{{/unless}} value> -- No creator -- </option>
       {{#each cooks}}
       <option value="{{_id}}" {{#ifvalue recipe.creator value="{{_id}}"}}selected{{/ifvalue}}>{{firstName}} {{lastName}}</option>
       {{/each}}

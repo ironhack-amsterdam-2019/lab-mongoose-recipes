@@ -45,13 +45,21 @@ router.post('/new', (req, res, next) => {
     cuisine: req.body.cuisine,
     dishType: req.body.dishType,
     image: req.body.image.trim().length > 0 ? req.body.image.trim() : "/no-image.png",
-    duration: parseInt(req.body.duration),
-    creator: mongoose.Types.ObjectId(req.body.creator)
+    duration: parseInt(req.body.duration)
+  }
+  if (req.body.creator) {
+    try {
+      data.creator = mongoose.Types.ObjectId(req.body.creator)
+    } catch(error) {
+      console.log("Attempting to link recipe with invalid ObjectId for creator")
+      console.log(error)
+    }
   }
   Recipe.create(data).then(recipe => {
     Cook.findById(recipe.creator).then(cook => {
-      if (!cook) {
-        next(new Error("Attempted to create recipe with unknown Cook"))
+      if (!cook || cook === null) {
+        res.redirect("/recipe/" + recipe._id);
+        return;
       }
       cook.update({
         $push: {

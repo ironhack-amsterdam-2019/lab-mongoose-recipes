@@ -19,26 +19,6 @@ router.get('/login', (req, res, next) => {
   })
 });
 
-router.get('/login/forgotpwd', (req, res, next) => {
-  if (req.session.user) {
-    res.render("message", {
-      message: "You are already loggin in... You should logout first ;)",
-      link: {
-        adress: "/users/logout",
-        text: "Logout"
-      }
-    })
-    return;
-  }
-  res.render("message", {
-    message: "You got a problem mate... There is no recovery or password reset here :P",
-    link: {
-      adress: "/users/signup",
-      text: "Go get a new account"
-    }
-  })
-});
-
 router.post('/login', (req, res, next) => {
   if (req.session.user) {
     res.render("message", {
@@ -90,6 +70,26 @@ router.post('/login', (req, res, next) => {
     .catch(error => {
       next(error);
     })
+});
+
+router.get('/login/forgotpwd', (req, res, next) => {
+  if (req.session.user) {
+    res.render("message", {
+      message: "You are already loggin in... You should logout first ;)",
+      link: {
+        adress: "/users/logout",
+        text: "Logout"
+      }
+    })
+    return;
+  }
+  res.render("message", {
+    message: "You got a problem mate... There is no recovery or password reset here :P",
+    link: {
+      adress: "/users/signup",
+      text: "Go get a new account"
+    }
+  })
 });
 
 module.exports = router;
